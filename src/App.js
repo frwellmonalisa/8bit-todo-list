@@ -10,8 +10,8 @@ import { insertOnIndex } from "./app-helpers/insert-on-index"
 import { createNewTodo } from "./app-helpers/create-new-todo"
 import { findListById } from "./app-helpers/find-list-by-id"
 import { findTodoById } from "./app-helpers/find-todo-by-id"
-import { updateLists } from "./app-helpers/update-lists"
 import { createNewList } from "./app-helpers/create-new-list"
+import { updateLocalStorage } from "./app-helpers/update-local-storage"
 
 class App extends Component {
   constructor(props) {
@@ -30,28 +30,22 @@ class App extends Component {
 
   handleAddList = (title, description) => {
     const newList = createNewList(title, description)
-
-    this.setState((prevState) => {
-      // Сохранение изменений в localStorage
-      localStorage.setItem(
-        "lists",
-        JSON.stringify([...prevState.lists, newList])
-      )
-
-      return {
-        lists: [...prevState.lists, newList],
-      }
-    })
+    this.setState(
+      {
+        lists: [...this.state.lists, newList],
+      },
+      () => updateLocalStorage(JSON.stringify(this.state.lists))
+    )
   }
 
   handleDeleteList = (listID) => {
     const filtered = this.state.lists.filter((list) => list.id !== listID)
-    this.setState({
-      lists: filtered,
-    })
-
-    // Сохранение изменений в localStorage
-    localStorage.setItem("lists", JSON.stringify(filtered))
+    this.setState(
+      {
+        lists: filtered,
+      },
+      () => updateLocalStorage(JSON.stringify(this.state.lists))
+    )
   }
 
   handleAddTodo = (listID, name) => {
@@ -65,7 +59,12 @@ class App extends Component {
       todos: [...listToEdit.todos, newTodo],
     }
 
-    this.setState(updateLists(listToEditIndex, editedList))
+    this.setState(
+      {
+        lists: insertOnIndex(this.state.lists, listToEditIndex, editedList),
+      },
+      () => updateLocalStorage(JSON.stringify(this.state.lists))
+    )
   }
 
   handleToggleTodo = (listID, todoID) => {
@@ -77,7 +76,13 @@ class App extends Component {
       ...listToEdit,
       todos: insertOnIndex(listToEdit.todos, todoToEditIndex, editedTodo),
     } // Вставка в список
-    this.setState(updateLists(listToEditIndex, editedList))
+
+    this.setState(
+      {
+        lists: insertOnIndex(this.state.lists, listToEditIndex, editedList),
+      },
+      () => updateLocalStorage(JSON.stringify(this.state.lists))
+    )
   }
 
   handleDeleteTodo = (listID, todoID) => {
@@ -88,7 +93,12 @@ class App extends Component {
       todos: listToEdit.todos.filter((todo) => todo.id !== todoID),
     }
 
-    this.setState(updateLists(listToEditIndex, editedList))
+    this.setState(
+      {
+        lists: insertOnIndex(this.state.lists, listToEditIndex, editedList),
+      },
+      () => updateLocalStorage(JSON.stringify(this.state.lists))
+    )
   }
 
   render() {
