@@ -2,25 +2,9 @@ import React from "react"
 import "./style.css"
 
 const TodosInList = ({ todos, listID, onToggleTodo, onDeleteTodo, filter }) => {
-  let filteredTodos = []
-
-  switch (filter) {
-    case "all":
-      filteredTodos = [...todos]
-      break
-    case "done":
-      filteredTodos = todos.filter((todo) => todo.isDone)
-      break
-    case "undone":
-      filteredTodos = todos.filter((todo) => !todo.isDone)
-      break
-    default:
-      filteredTodos = [...todos]
-  }
-
   return (
     <ul className="nes-list is-disc todos-list">
-      {filteredTodos.map(({ id, name, isDone }) => (
+      {todos.map(({ id, name, isDone }) => (
         <li key={id}>
           <span
             className="nes-text is-error nes-pointer"
