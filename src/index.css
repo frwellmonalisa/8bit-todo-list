@@ -1,0 +1,21 @@
+html,
+body,
+pre,
+code,
+kbd,
+samp {
+    font-family: "Press Start 2P", Arial, Helvetica, sans-serif;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.progress-bar-label {
+    margin-top: 1rem;
+}
+
+.form_part {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
