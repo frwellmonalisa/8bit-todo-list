@@ -1,7 +1,7 @@
 import React from "react"
-import "./style.css"
+import "./todos-list.css"
 
-const TodosInList = ({ todos, listID, onToggleTodo, onDeleteTodo, filter }) => {
+export const TodosList = ({ todos, listID, onToggleTodo, onDeleteTodo }) => {
   return (
     <ul className="nes-list is-disc todos-list">
       {todos.map(({ id, name, isDone }) => (
@@ -26,5 +26,3 @@ const TodosInList = ({ todos, listID, onToggleTodo, onDeleteTodo, filter }) => {
     </ul>
   )
 }
-
-export default TodosInList

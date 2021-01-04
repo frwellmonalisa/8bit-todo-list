@@ -3,9 +3,10 @@ import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 
-import List from "./components/List"
-import AddListForm from "./components/AddListForm"
-import Titles from "./components/Titles"
+import { List } from "./components/list"
+import { AddListForm } from "./components/add-list-form"
+import { About } from "./components/about"
+
 import { insertOnIndex } from "./app-helpers/insert-on-index"
 import { createNewTodo } from "./app-helpers/create-new-todo"
 import { findListById } from "./app-helpers/find-list-by-id"
@@ -13,7 +14,7 @@ import { findTodoById } from "./app-helpers/find-todo-by-id"
 import { createNewList } from "./app-helpers/create-new-list"
 import { updateLocalStorage } from "./app-helpers/update-local-storage"
 
-class App extends Component {
+export class App extends Component {
   constructor(props) {
     super(props)
 
@@ -30,6 +31,7 @@ class App extends Component {
 
   handleAddList = (title, description) => {
     const newList = createNewList(title, description)
+
     this.setState(
       {
         lists: [...this.state.lists, newList],
@@ -40,6 +42,7 @@ class App extends Component {
 
   handleDeleteList = (listID) => {
     const filtered = this.state.lists.filter((list) => list.id !== listID)
+
     this.setState(
       {
         lists: filtered,
@@ -143,10 +146,8 @@ class App extends Component {
           </Col>
         </Row>
         <Row>{lists}</Row>
-        <Titles />
+        <About />
       </Container>
     )
   }
 }
-
-export default App

@@ -1,11 +1,11 @@
 import React, { Component } from "react"
-import TodosInList from "./TodosInList"
-import AddTodoForm from "./AddTodoForm"
-import ProgressBarForList from "./ProgressBarForList"
-import TodosFilter from "./TodosFilter"
+import { TodosList } from "./todos-list/todos-list"
+import { AddTodoForm } from "./add-todo-form"
+import { ProgressBarForList } from "./progress-bar-for-list"
+import { TodosFilter } from "./todos-filter"
 import { filterTodosByType } from "../app-helpers/filter-todos-by-type"
 
-export default class List extends Component {
+export class List extends Component {
   constructor(props) {
     super(props)
 
@@ -36,7 +36,7 @@ export default class List extends Component {
         <p className="title">{title}</p>
         <p>{description}</p>
         {hasTodos ? (
-          <TodosInList
+          <TodosList
             todos={filteredTodos}
             listID={list.id}
             onDeleteTodo={onDeleteTodo}
