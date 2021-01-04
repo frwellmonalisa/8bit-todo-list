@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 const ProgressBarForList = ({ todos }) => {
     const todosCount = todos.length;
-    const isDoneTodosCount = todos.filter(todo => todo.isDone).length;
+    const isDoneTodosCount = todos.filter((todo) => todo.isDone).length;
 
     return (
         <Fragment>
@@ -11,9 +11,7 @@ const ProgressBarForList = ({ todos }) => {
                 className="nes-progress is-success"
                 value={isDoneTodosCount}
                 max={todosCount}
-            >
-                dsdfsd
-            </progress>
+            />
         </Fragment>
     );
 };
