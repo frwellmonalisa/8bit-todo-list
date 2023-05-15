@@ -1,63 +1,42 @@
-import React, { Component } from "react"
+import React, { useState } from "react"
 
-export class AddTodoForm extends Component {
-  constructor(props) {
-    super(props)
+export const AddTodoForm = (props) => {
+  const [name, setName] = useState("")
+  const [isError, setIsError] = useState(false)
 
-    this.state = {
-      name: "",
-      isError: false,
-    }
+  const handleChange = (e) => {
+    e.preventDefault()
+    setName(e.target.value)
   }
 
-  handleChange = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
-    this.setState({
-      name: e.target.value,
-    })
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault()
-
-    const { name } = this.state
-
-    // Проверка на пустое поле названия списка
     if (name === "") {
-      this.setState({
-        isError: true,
-      })
-
+      setIsError(true)
       return
     }
 
-    this.props.onAddTodo(this.props.listID, name)
+    props.onAddTodo(props.listID, name)
 
-    this.setState({
-      name: "",
-      isError: false,
-    })
+    setName("")
+    setIsError(false)
   }
 
-  render() {
-    const { isError } = this.state
-
-    return (
-      <form onSubmit={this.handleSubmit} className="nes-field is-inline">
-        <input
-          type="text"
-          id="inline_field"
-          className={isError ? "nes-input is-error" : "nes-input"}
-          placeholder={isError ? "Пусто!" : "Добавить задачу"}
-          value={this.state.name}
-          onChange={this.handleChange}
-          autoComplete="off"
-        />
-        <button type="submit" className="nes-btn is-primary">
-          +
-        </button>
-      </form>
-    )
-  }
+  return (
+    <form onSubmit={handleSubmit} className="nes-field is-inline">
+      <input
+        type="text"
+        id="inline_field"
+        className={isError ? "nes-input is-error" : "nes-input"}
+        placeholder={isError ? "Пусто!" : "Добавить задачу"}
+        value={name}
+        onChange={handleChange}
+        autoComplete="off"
+      />
+      <button type="submit" className="nes-btn is-primary">
+        +
+      </button>
+    </form>
+  )
 }
